@@ -12,13 +12,9 @@ pipeline {
                     echo 'Last  .. ' +last
                    writeFile(file: 'SalesReportLastRun.txt', text: now)
                      echo 'Current  .. ' +now
-                    def jsonString = '{"name":"katone","age":5}'
-                    def jsonObj = readJSON text: jsonString
-
-                    assert jsonObj['name'] == 'katone'  // this is a comparison.  It returns true
-                    sh "echo ${jsonObj.name}"  // prints out katone
-                    sh "echo ${jsonObj.age}"   // prints out 5
-                    
+                    def records = readCSV file: 'input.csv'
+                    assert records[0][0] == 'PreviousRunDate'
+                    assert records[1][1] == 'b'        
                }
             }
         }
