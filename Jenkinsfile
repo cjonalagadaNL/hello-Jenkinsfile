@@ -32,7 +32,7 @@ pipeline {
                     echo 'Previous build result: ' + currentBuild.getPreviousBuild().result
                     echo 'Prevoius build description: ' +currentBuild.previousBuild.description
                     echo 'Prevoius build id: ' +currentBuild.previousBuild.getId()
-                    echo 'Prevoius build time: ' +currentBuild.previousBuild.getTimestamp()
+                    echo 'Prevoius build time: ' + currentBuild.getPreviousBuild().getTime().format("yyyy-MM-dd HH:mm:ss.SSS", TimeZone.getTimeZone('UTC'))
                }
             }
         }
