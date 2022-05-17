@@ -27,6 +27,7 @@ pipeline {
                         build = build.previousBuild
                     }
                     echo changes
+                    echo 'Get Previous Build: ' + build.getPreviousBuild()
                     
                }
             }
