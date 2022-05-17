@@ -29,7 +29,7 @@ pipeline {
                     }
                     echo changes
                    
-                    echo 'Raw Result: ' + currentBuild.rawBuild.getPreviousBuild()?.getResult().toString()
+                    echo 'Raw Result: ' + currentBuild.getPreviousBuild().result
                }
             }
         }
