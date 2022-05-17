@@ -10,7 +10,7 @@ pipeline {
                 script {
                    def date = new Date()
                    def now = date.format("yyyy-MM-dd HH:mm:ss.SSS", TimeZone.getTimeZone('UTC'))
-                   def last = readFile(file: 'SalesReportLastRun.txt'
+                   def last = readFile(file: 'SalesReportLastRun.txt')
                    echo 'Last  .. ' +last
                    writeFile(file: 'SalesReportLastRun.txt', text: now)
                    echo 'Current  .. ' +now       
