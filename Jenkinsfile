@@ -29,7 +29,9 @@ pipeline {
                     }
                     echo changes
                    
-                    echo 'Raw Result: ' + currentBuild.getPreviousBuild().result
+                    echo 'Previous build result: ' + currentBuild.getPreviousBuild().result
+                    echo 'Prevoius build description: ' +currentBuild.previousBuild.description
+                    echo 'Prevoius build time: ' +currentBuild.previousBuild.getTime()
                }
             }
         }
