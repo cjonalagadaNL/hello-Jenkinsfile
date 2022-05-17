@@ -12,8 +12,8 @@ pipeline {
                    echo 'Last  .. ' +last
                    writeFile(file: 'SalesReportLastRun.txt', text: now)
                    echo 'Current  .. ' +now       
-                    def lastSuccessBuildName = Jenkins.instance.getItem(env.JOB_NAME).lastSuccessfulBuild.displayName
-                    echo "Last Success Build Name: ${lastSuccessBuildName}"
+                    //def lastSuccessBuildName = Jenkins.instance.getItem(env.JOB_NAME).lastSuccessfulBuild.displayName
+                    echo "Last Success Build Name: "currentBuild.previousSuccessfulBuild
                }
             }
         }
