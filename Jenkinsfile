@@ -16,6 +16,7 @@ pipeline {
                     def changes = "Changes:\n"
                     build = currentBuild
                     while(build != null && build.result != 'SUCCESS') {
+                        
                         changes += "In ${build.id}:\n"
                         for (changeLog in build.changeSets) {
                             for(entry in changeLog.items) {
@@ -27,11 +28,8 @@ pipeline {
                         build = build.previousBuild
                     }
                     echo changes
-                    echo 'Get Previous Build: ' + build.getPreviousBuild()
-                     //echo 'Get Last Successful Build: ' + build.lastSuccessfulBuild()
-                    echo 'Get BUILD_TIMESTAMP: ' + BUILD_TIMESTAMP
-                    echo 'Get BUILD_ID: ' + BUILD_ID
-                    
+                   
+                    echo 'Raw Result: ' + currentBuild.rawBuild.getPreviousBuild()?.getResult().toString()
                }
             }
         }
