@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        def BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
+    }
     stages {
         stage('Build') {
             steps {
