@@ -28,6 +28,7 @@ pipeline {
                     }
                     echo changes
                     echo 'Get Previous Build: ' + build.getPreviousBuild()
+                     echo 'Get Last Successful Build: ' + build.lastSuccessfulBuild()
                     
                }
             }
