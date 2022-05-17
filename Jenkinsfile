@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        def BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
+        def BUILDVERSION = '1234567890'
     }
     stages {
         stage('Build') {
@@ -10,7 +10,7 @@ pipeline {
                 script {
                    def date = new Date()
                    def now = date.format("yyyy-MM-dd HH:mm:ss.SSS", TimeZone.getTimeZone('UTC'))
-                   def last = readFile(file: 'SalesReportLastRun.txt')
+                   def last = readFile(file: 'SalesReportLastRun.txt'
                    echo 'Last  .. ' +last
                    writeFile(file: 'SalesReportLastRun.txt', text: now)
                    echo 'Current  .. ' +now       
@@ -34,8 +34,7 @@ pipeline {
                     echo 'Previous build result: ' + currentBuild.getPreviousBuild().result
                     echo 'Prevoius build description: ' +currentBuild.previousBuild.description
                     echo 'Prevoius build id: ' +currentBuild.previousBuild.getId()
-                    echo 'Prevoius build time: ' + currentBuild.getPreviousBuild().getTime().format("yyyy-MM-dd HH:mm:ss.SSS", TimeZone.getTimeZone('UTC'))
-               }
+              }
             }
         }
         stage('Test') {
@@ -47,6 +46,11 @@ pipeline {
             steps {
                 echo 'Deploying....'
             }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'SalesReportLastRun.txt', onlyIfSuccessful: true
         }
     }
 }
