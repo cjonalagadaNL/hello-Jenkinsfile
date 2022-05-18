@@ -34,6 +34,7 @@ pipeline {
                     echo 'Previous build result: ' + currentBuild.getPreviousBuild().result
                     echo 'Prevoius build description: ' +currentBuild.previousBuild.description
                     echo 'Prevoius build id: ' +currentBuild.previousBuild.getId()
+                    echo 'Prevoius BUILDVERSION: ' + currentBuild.previousBuild.buildVariables.BUILDVERSION
               }
             }
         }
