@@ -7,32 +7,16 @@ pipeline {
                 script {
                    def date = new Date()
                    def now = date.format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone('UTC'))
-                   env.BUILDVERSION=now
-                   def last = readFile(file: 'SalesReportLastRun.txt')
-                   echo 'Last  .. ' +last
-                   writeFile(file: 'SalesReportLastRun.txt', text: now)
+                   env.CURRENT_RUN_TIMESTAMP=now
                    echo 'Current  .. ' +now       
                   
-                    def changes = "Changes:\n"
                     build = currentBuild
                     while(build != null && build.result != 'SUCCESS') {
-                        
-                        changes += "In ${build.id}:\n"
-                        for (changeLog in build.changeSets) {
-                            for(entry in changeLog.items) {
-                                for(file in entry.affectedFiles) {
-                                    changes += "* ${file.path}\n"
-                                }
-                            }
-                        }
                         build = build.previousBuild
                     }
-                    echo changes
-                   
-                    echo 'Previous build result: ' + currentBuild.getPreviousBuild().result
-                    echo 'Prevoius build description: ' +currentBuild.previousBuild.description
-                    echo 'Prevoius build id: ' +currentBuild.previousBuild.getId()
-                    echo 'Prevoius BUILDVERSION: ' + currentBuild.previousBuild.buildVariables.BUILDVERSION
+                    
+                    echo 'Previous build result: ' + build.result
+                    echo 'Prevoius LAST_RUN_TIMESTAMP: ' + build.buildVariables.CURRENT_RUN_TIMESTAMP
               }
             }
         }
