@@ -5,13 +5,11 @@ pipeline {
             steps {
                 echo 'Building..'
                 script {
-                   def date = new Date()
-                   def now = date.format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone('UTC'))
-                   env.CURRENT_RUN_TIMESTAMP=now
-                   echo 'Current  .. ' +now       
-                 
-                    build = currentBuild
-                    while(build != null && build.result != 'SUCCESS') {
+                   def today = new Date()
+                   def yesterday = today - 1
+                   env.CURRENT_RUN_TIMESTAMP=today.format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone('UTC'))
+                   build = currentBuild
+                   while(build != null && build.result != 'SUCCESS') {
                         build = build.previousBuild
                     }
                     
@@ -19,7 +17,7 @@ pipeline {
                     echo 'Prevoius LAST_RUN_TIMESTAMP: ' + build.buildVariables.CURRENT_RUN_TIMESTAMP
                     
                     if (build.buildVariables.CURRENT_RUN_TIMESTAMP != null) {
-                         env.LAST_RUN_TIMESTAMP=now.plus(-1)
+                         env.LAST_RUN_TIMESTAMP=yesterday.format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone('UTC'))
                        
                     } else {
                          env.LAST_RUN_TIMESTAMP=build.buildVariables.CURRENT_RUN_TIMESTAMP
