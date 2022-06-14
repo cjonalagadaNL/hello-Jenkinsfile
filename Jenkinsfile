@@ -6,10 +6,10 @@ pipeline {
                 echo 'Building..'
                 script {
                    def date = new Date()
-                   def now = date.format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone('UTC'))
+                
                    env.CURRENT_RUN_TIMESTAMP=now
                    echo 'Current  .. ' +now       
-                  
+                   def now = date.format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone('UTC'))
                     build = currentBuild
                     while(build != null && build.result != 'SUCCESS') {
                         build = build.previousBuild
