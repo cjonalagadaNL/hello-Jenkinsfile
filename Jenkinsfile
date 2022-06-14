@@ -1,15 +1,12 @@
 pipeline {
     agent any
-    environment {
-        def BUILDVERSION = '1234567890'
-    }
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
                 script {
                    def date = new Date()
-                   def now = date.format("yyyy-MM-dd HH:mm:ss.SSS", TimeZone.getTimeZone('UTC'))
+                   def now = date.format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone('UTC'))
                    env.BUILDVERSION=now
                    def last = readFile(file: 'SalesReportLastRun.txt')
                    echo 'Last  .. ' +last
